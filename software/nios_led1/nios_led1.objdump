@@ -43,45 +43,45 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  12 .debug_frame  00000438  00000000  00000000  00007c4c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_str    00000a9a  00000000  00000000  00008084  2**0
+ 13 .debug_str    00000a99  00000000  00000000  00008084  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  14 .debug_alt_sim_info 00000010  00000000  00000000  00008b20  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_ranges 00000020  00000000  00000000  00008b30  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_line_str 000009b8  00000000  00000000  00008b50  2**0
+ 16 .debug_line_str 000009b6  00000000  00000000  00008b50  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_loclists 00000282  00000000  00000000  00009508  2**0
+ 17 .debug_loclists 00000282  00000000  00000000  00009506  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_rnglists 00000064  00000000  00000000  0000978a  2**0
+ 18 .debug_rnglists 00000064  00000000  00000000  00009788  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .thread_model 00000003  00000000  00000000  0000aa22  2**0
+ 19 .thread_model 00000003  00000000  00000000  0000aa1e  2**0
                   CONTENTS, READONLY
- 20 .cpu          00000003  00000000  00000000  0000aa25  2**0
+ 20 .cpu          00000003  00000000  00000000  0000aa21  2**0
                   CONTENTS, READONLY
- 21 .qsys         00000001  00000000  00000000  0000aa28  2**0
+ 21 .qsys         00000001  00000000  00000000  0000aa24  2**0
                   CONTENTS, READONLY
- 22 .simulation_enabled 00000001  00000000  00000000  0000aa29  2**0
+ 22 .simulation_enabled 00000001  00000000  00000000  0000aa25  2**0
                   CONTENTS, READONLY
- 23 .sysid_hash   00000004  00000000  00000000  0000aa2a  2**0
+ 23 .sysid_hash   00000004  00000000  00000000  0000aa26  2**0
                   CONTENTS, READONLY
- 24 .sysid_base   00000004  00000000  00000000  0000aa2e  2**0
+ 24 .sysid_base   00000004  00000000  00000000  0000aa2a  2**0
                   CONTENTS, READONLY
- 25 .sysid_time   00000004  00000000  00000000  0000aa32  2**0
+ 25 .sysid_time   00000004  00000000  00000000  0000aa2e  2**0
                   CONTENTS, READONLY
- 26 .stderr_dev   00000004  00000000  00000000  0000aa36  2**0
+ 26 .stderr_dev   00000004  00000000  00000000  0000aa32  2**0
                   CONTENTS, READONLY
- 27 .stdin_dev    00000004  00000000  00000000  0000aa3a  2**0
+ 27 .stdin_dev    00000004  00000000  00000000  0000aa36  2**0
                   CONTENTS, READONLY
- 28 .stdout_dev   00000004  00000000  00000000  0000aa3e  2**0
+ 28 .stdout_dev   00000004  00000000  00000000  0000aa3a  2**0
                   CONTENTS, READONLY
- 29 .sopc_system_name 00000009  00000000  00000000  0000aa42  2**0
+ 29 .sopc_system_name 00000009  00000000  00000000  0000aa3e  2**0
                   CONTENTS, READONLY
- 30 .quartus_project_dir 00000052  00000000  00000000  0000aa4b  2**0
+ 30 .quartus_project_dir 00000051  00000000  00000000  0000aa47  2**0
                   CONTENTS, READONLY
- 31 .jdi          0000358c  00000000  00000000  0000aa9d  2**0
+ 31 .jdi          0000358c  00000000  00000000  0000aa98  2**0
                   CONTENTS, READONLY
- 32 .sopcinfo     00037e70  00000000  00000000  0000e029  2**0
+ 32 .sopcinfo     00037e70  00000000  00000000  0000e024  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
 00008000 l    d  .entry	00000000 .entry
@@ -275,14 +275,14 @@ alt_after_alt_main:
 #include "alt_types.h"
 #include "system.h"
 
-void sw_get_command(alt_u32 sw_base, int *prd)
-{
+
+void sw_get_command(alt_u32 sw_base, int *prd){
     805c:	defffd04 	addi	sp,sp,-12
     8060:	df000215 	stw	fp,8(sp)
     8064:	df000204 	addi	fp,sp,8
     8068:	e13fff15 	stw	r4,-4(fp)
     806c:	e17ffe15 	stw	r5,-8(fp)
-	*prd = IORD(sw_base, 0) & 0x000003ff;
+	*prd = IORD(sw_base, 0) & 0x000003ff; // read flashing period
     8070:	e0bfff17 	ldw	r2,-4(fp)
     8074:	10800037 	ldwio	r2,0(r2)
     8078:	10c0ffcc 	andi	r3,r2,1023
@@ -296,18 +296,17 @@ void sw_get_command(alt_u32 sw_base, int *prd)
     8094:	f800283a 	ret
 
 00008098 <led_flash>:
-void led_flash(alt_u32 led_base, int prd)
-{
+
+void led_flash(alt_u32 led_base, int prd){
     8098:	defffa04 	addi	sp,sp,-24
     809c:	dfc00515 	stw	ra,20(sp)
     80a0:	df000415 	stw	fp,16(sp)
     80a4:	df000404 	addi	fp,sp,16
     80a8:	e13ffd15 	stw	r4,-12(fp)
     80ac:	e17ffc15 	stw	r5,-16(fp)
-	static alt_u8 led_pattern = 0x01;
+	static alt_u8 led_pattern = 0x01; //initial pattern
 	unsigned long i, itr;
-
-	led_pattern ^= 0x03;
+	led_pattern ^= 0x03; //toggle 2 LEDs (2LSBs);
     80b0:	d0a00003 	ldbu	r2,-32768(gp)
     80b4:	108000dc 	xori	r2,r2,3
     80b8:	d0a00005 	stb	r2,-32768(gp)
@@ -316,12 +315,12 @@ void led_flash(alt_u32 led_base, int prd)
     80c0:	d0e00003 	ldbu	r3,-32768(gp)
     80c4:	18c03fcc 	andi	r3,r3,255
     80c8:	10c00035 	stwio	r3,0(r2)
-	itr = prd * 2500;
+	itr = prd *2500;
     80cc:	01427104 	movi	r5,2500
     80d0:	e13ffc17 	ldw	r4,-16(fp)
     80d4:	00081540 	call	8154 <__mulsi3>
     80d8:	e0bffe15 	stw	r2,-8(fp)
-	for(i=0;i<itr;i++){}
+	for(i=0; i<itr; i++){} // dummy loop for delay
     80dc:	e03fff15 	stw	zero,-4(fp)
     80e0:	00000306 	br	80f0 <led_flash+0x58>
     80e4:	e0bfff17 	ldw	r2,-4(fp)
@@ -340,6 +339,7 @@ void led_flash(alt_u32 led_base, int prd)
     8114:	f800283a 	ret
 
 00008118 <main>:
+
 int main()
 {
     8118:	defffd04 	addi	sp,sp,-12
@@ -347,8 +347,7 @@ int main()
     8120:	df000115 	stw	fp,4(sp)
     8124:	df000104 	addi	fp,sp,4
 	int prd;
-	while(1)
-	{
+	while(1){
 		sw_get_command(SWITCH_BASE, &prd);
     8128:	e0bfff04 	addi	r2,fp,-4
     812c:	100b883a 	mov	r5,r2

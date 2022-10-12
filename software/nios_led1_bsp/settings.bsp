@@ -2,10 +2,10 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Aug 17, 2022 12:06:25 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1660712785065</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>/home/danielcrovo/Documents/Daniel/01.Study/01.MScEE/02.Semester2/SoC/WorkspaceSoC/software/nios_led1_bsp</BspGeneratedLocation>
-        <BspSettingsFile>settings.bsp</BspSettingsFile>
+        <BspGeneratedTimeStamp>Oct 12, 2022 2:31:13 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1665603073737</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>/home/danielcrovo/Documents/Daniel/01.Study/01.MScEE/02.Semester2/SoC/Taller1_SoC/software/nios_led1_bsp</BspGeneratedLocation>
+        <BspSettingsFile>./settings.bsp</BspSettingsFile>
         <SopcDesignFile>../../nios_led1.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>cpu</Cpu>
