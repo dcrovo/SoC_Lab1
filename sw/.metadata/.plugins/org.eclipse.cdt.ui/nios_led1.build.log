@@ -1,0 +1,9 @@
+06:48:25 **** Incremental Build of configuration Nios II for project nios_led1 ****
+make all 
+Info: Building ../nios_led1_bsp/
+make --no-print-directory -C ../nios_led1_bsp/
+[BSP build complete]
+[nios_led1 build complete]
+
+06:48:25 Build Finished (took 110ms)
+
